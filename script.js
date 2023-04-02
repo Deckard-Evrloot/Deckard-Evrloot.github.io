@@ -2,13 +2,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   const futureEventsContainer = document.querySelector('.future-events');
   const pastEventsContainer = document.querySelector('.past-events');
 
-  const API_KEY = 'AIzaSyAxSUaEX5hAPxNC8SLBSht1OP23wnQJwBo';
-  const SPREADSHEET_ID = '1Y7-F9gCfa16R73lnh_ALXdLTLr9OZmSrnIqkx0g2TtQ';
-  const SHEET_NAME = 'EventDatabaseEvrloot';
+  const API_KEY = 'YOUR_ACTUAL_API_KEY';
+  const SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID';
+  const SHEET_NAME = 'Sheet1';
 
- function parseDate(dateString) {
-  const [day, month, year] = dateString.split('-');
-  return new Date(year, month - 1, day);
+  function parseDate(dateString) {
+    const [day, month, year] = dateString.split('-');
+    return new Date(year, month - 1, day);
   }
 
   async function fetchEventData() {
@@ -30,11 +30,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         return obj;
       });
 
-    return formattedData;
-  } catch (error) {
-    console.error('Error fetching event data:', error);
+      return formattedData;
+    } catch (error) {
+      console.error('Error fetching event data:', error);
+    }
   }
-}
 
   function createEventElement(eventData) {
     const eventDiv = document.createElement('div');
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     eventImageContainer.appendChild(eventImage);
 
     const eventTime = document.createElement('p');
-    const eventDate = new Date(eventData.Time);
+    const eventDate = eventData.Time;
     const germanFormattedTime = new Intl.DateTimeFormat('de-DE', {
       year: 'numeric',
       month: 'long',
@@ -82,13 +82,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function compareDates(a, b) {
-    const dateA = new Date(a.Time);
-    const dateB = new Date(b.Time);
+    const dateA = a.Time;
+    const dateB = b.Time;
     return dateA - dateB;
   }
 
   function isPastEvent(eventData) {
-    const eventDate = new Date(eventData.Time);
+    const eventDate = eventData.Time;
     const currentDate = new Date();
     return eventDate < currentDate;
   }
