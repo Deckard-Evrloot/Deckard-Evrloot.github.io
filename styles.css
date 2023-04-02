@@ -24,6 +24,8 @@ body {
 .event .image-container {
   width: 200px; /* Adjust width if necessary */
   height: 300px; /* Fixed height */
+  max-width: 200px; /* Adjust width if necessary */
+  max-height: 300px; /* Fixed height */
   position: relative;
   margin-right: 1rem;
   overflow: hidden;
