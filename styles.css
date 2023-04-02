@@ -14,11 +14,14 @@ body {
   align-items: flex-start;
   margin-bottom: 2rem;
   position: relative;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 .event .image-container {
-  width: 33.3333%; /* Adjust the width percentage if necessary */
-  padding-bottom: 50%; /* 2:3 aspect ratio */
+  width: 200px; /* Adjust width if necessary */
+  height: 300px; /* Fixed height */
   position: relative;
   margin-right: 1rem;
   overflow: hidden;
@@ -60,4 +63,10 @@ body {
 
 .past-events {
   margin-bottom: 4rem;
+}
+
+.month-divider {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 2rem 0;
 }
