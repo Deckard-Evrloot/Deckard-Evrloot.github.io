@@ -6,11 +6,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const SPREADSHEET_ID = '1Y7-F9gCfa16R73lnh_ALXdLTLr9OZmSrnIqkx0g2TtQ';
   const SHEET_NAME = 'EventDatabaseEvrloot';
 
-  function parseDate(dateString) {
-    const [day, month, year] = dateString.split('-');
-    return new Date(year, month - 1, day);
-  }
-
   async function fetchEventData() {
     try {
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
@@ -21,11 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const formattedData = rows.map((row) => {
         const obj = {};
         headers.forEach((header, index) => {
-          if (header === 'Time') {
-            obj[header] = parseDate(row[index]);
-          } else {
-            obj[header] = row[index];
-          }
+          obj[header] = row[index];
         });
         return obj;
       });
@@ -50,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     eventImageContainer.appendChild(eventImage);
 
     const eventTime = document.createElement('p');
-    const eventDate = eventData.Time;
+    const eventDate = new Date(eventData.Time);
     const germanFormattedTime = new Intl.DateTimeFormat('de-DE', {
       year: 'numeric',
       month: 'long',
@@ -82,13 +73,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function compareDates(a, b) {
-    const dateA = a.Time;
-    const dateB = b.Time;
+    const dateA = new Date(a.Time);
+    const dateB = new Date(b.Time);
     return dateA - dateB;
   }
 
   function isPastEvent(eventData) {
-    const eventDate = eventData.Time;
+    const eventDate = new Date(eventData.Time);
     const currentDate = new Date();
     return eventDate < currentDate;
   }
