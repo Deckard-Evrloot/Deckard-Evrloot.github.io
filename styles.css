@@ -29,6 +29,21 @@ body {
     width: 80%;
 }
 
+.event {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.event-time {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 0.5rem;
+}
+
 .event img {
     width: 300px;
     height: 200px;
