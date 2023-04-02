@@ -5,6 +5,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   const API_KEY = 'AIzaSyAxSUaEX5hAPxNC8SLBSht1OP23wnQJwBo';
   const SPREADSHEET_ID = '1Y7-F9gCfa16R73lnh_ALXdLTLr9OZmSrnIqkx0g2TtQ';
   const SHEET_NAME = 'EventDatabaseEvrloot';
+  const FALLBACK_IMAGE_URL = 'https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg';
+
+  function parseDate(dateString) {
+    const [day, month, year, hour, minute] = dateString.split(/[- :]/);
+    return new Date(year, month - 1, day, hour, minute);
+  }
 
   async function fetchEventData() {
     try {
@@ -16,7 +22,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       const formattedData = rows.map((row) => {
         const obj = {};
         headers.forEach((header, index) => {
-          obj[header] = row[index];
+          if (header === 'Time') {
+            obj[header] = parseDate(row[index]);
+          } else {
+            obj[header] = row[index];
+          }
         });
         return obj;
       });
@@ -31,71 +41,47 @@ document.addEventListener('DOMContentLoaded', async () => {
     const eventDiv = document.createElement('div');
     eventDiv.classList.add('event');
 
-    const eventImageContainer = document.createElement('div');
-    eventImageContainer.classList.add('image-container');
-
+    const imageContainer = document.createElement('div');
+    imageContainer.classList.add('image-container');
     const eventImage = document.createElement('img');
-    eventImage.src = eventData['Image URL'];
-    eventImage.alt = 'Event Image';
+    eventImage.src = eventData.ImageURL || FALLBACK_IMAGE_URL;
+    imageContainer.appendChild(eventImage);
 
-    eventImageContainer.appendChild(eventImage);
-
-    const eventTime = document.createElement('p');
-    const eventDate = new Date(eventData.Time);
-    const germanFormattedTime = new Intl.DateTimeFormat('de-DE', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      timeZoneName: 'short',
-    }).format(eventDate);
-    eventTime.textContent = `Zeit: ${germanFormattedTime}`;
+    const eventTime = document.createElement('div');
     eventTime.classList.add('event-time');
+    const eventDate = eventData.Time;
+    const formattedDate = `${eventDate.getDate()}-${eventDate.getMonth() + 1}-${eventDate.getFullYear()} ${eventDate.getHours()}:${eventDate.getMinutes()}`;
+    eventTime.textContent = formattedDate;
+    imageContainer.appendChild(eventTime);
 
-    const eventDetails = document.createElement('div');
-    eventDetails.classList.add('details');
+    const detailsDiv = document.createElement('div');
+    detailsDiv.classList.add('details');
 
-    const eventTitle = document.createElement('h1');
-    eventTitle.textContent = eventData.Title;
+    const title = document.createElement('h1');
+    title.textContent = eventData.Title;
+    detailsDiv.appendChild(title);
 
-    const eventLocation = document.createElement('p');
-    eventLocation.textContent = `Location: ${eventData.Location}`;
+    const location = document.createElement('p');
+    location.textContent = `Ort: ${eventData.Location}`;
+    detailsDiv.appendChild(location);
 
-    eventDetails.appendChild(eventTitle);
-    eventDetails.appendChild(eventLocation);
-
-    eventDiv.appendChild(eventImageContainer);
-    eventDiv.appendChild(eventTime);
-    eventDiv.appendChild(eventDetails);
+    eventDiv.appendChild(imageContainer);
+    eventDiv.appendChild(detailsDiv);
 
     return eventDiv;
   }
 
-  function compareDates(a, b) {
-    const dateA = new Date(a.Time);
-    const dateB = new Date(b.Time);
-    return dateA - dateB;
-  }
-
-  function isPastEvent(eventData) {
-    const eventDate = new Date(eventData.Time);
-    const currentDate = new Date();
-    return eventDate < currentDate;
-  }
-
-  async function displayEvents() {
-    const eventsData = await fetchEventData();
-    const sortedEventsData = eventsData.sort(compareDates);
-
-    sortedEventsData.forEach((eventData) => {
-      const eventElement = createEventElement(eventData);
-
-      if (isPastEvent(eventData)) {
-        pastEventsContainer.appendChild(eventElement);
-      } else {
-        futureEventsContainer.appendChild(eventElement);
-      }
+  function displayEvents() {
+    fetchEventData().then((eventDataArray) => {
+      const now = new Date();
+      eventDataArray.forEach((eventData) => {
+        const eventElement = createEventElement(eventData);
+        if (eventData.Time > now) {
+          futureEventsContainer.appendChild(eventElement);
+        } else {
+          pastEventsContainer.appendChild(eventElement);
+        }
+      });
     });
   }
 
