@@ -20,15 +20,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     eventImage.src = eventData['Image URL'];
     eventImage.alt = 'Event Image';
 
-    const eventDetails = document.createElement('div');
-    eventDetails.classList.add('details');
-
-    const eventTitle = document.createElement('h1');
-    eventTitle.textContent = eventData.Title;
-
-    const eventLocation = document.createElement('p');
-    eventLocation.textContent = `Location: ${eventData.Location}`;
-
     const eventTime = document.createElement('p');
     const eventDate = new Date(eventData.Time);
     const germanFormattedTime = new Intl.DateTimeFormat('de-DE', {
@@ -40,12 +31,22 @@ document.addEventListener('DOMContentLoaded', async () => {
       timeZoneName: 'short',
     }).format(eventDate);
     eventTime.textContent = `Zeit: ${germanFormattedTime}`;
+    eventTime.classList.add('event-time');
+
+    const eventDetails = document.createElement('div');
+    eventDetails.classList.add('details');
+
+    const eventTitle = document.createElement('h1');
+    eventTitle.textContent = eventData.Title;
+
+    const eventLocation = document.createElement('p');
+    eventLocation.textContent = `Location: ${eventData.Location}`;
 
     eventDetails.appendChild(eventTitle);
     eventDetails.appendChild(eventLocation);
-    eventDetails.appendChild(eventTime);
 
     eventDiv.appendChild(eventImage);
+    eventDiv.appendChild(eventTime);
     eventDiv.appendChild(eventDetails);
 
     return eventDiv;
