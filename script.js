@@ -6,6 +6,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   const SPREADSHEET_ID = '1Y7-F9gCfa16R73lnh_ALXdLTLr9OZmSrnIqkx0g2TtQ';
   const SHEET_NAME = 'EventDatabaseEvrloot';
 
+ function parseDate(dateString) {
+  const [day, month, year] = dateString.split('-');
+  return new Date(year, month - 1, day);
+  }
+
   async function fetchEventData() {
     try {
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
@@ -16,16 +21,20 @@ document.addEventListener('DOMContentLoaded', async () => {
       const formattedData = rows.map((row) => {
         const obj = {};
         headers.forEach((header, index) => {
-          obj[header] = row[index];
+          if (header === 'Time') {
+            obj[header] = parseDate(row[index]);
+          } else {
+            obj[header] = row[index];
+          }
         });
         return obj;
       });
 
-      return formattedData;
-    } catch (error) {
-      console.error('Error fetching event data:', error);
-    }
+    return formattedData;
+  } catch (error) {
+    console.error('Error fetching event data:', error);
   }
+}
 
   function createEventElement(eventData) {
     const eventDiv = document.createElement('div');
