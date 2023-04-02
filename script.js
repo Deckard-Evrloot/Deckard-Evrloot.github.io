@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  const eventsContainer = document.querySelector('.container');
+  const futureEventsContainer = document.querySelector('.future-events');
+  const pastEventsContainer = document.querySelector('.past-events');
 
   async function fetchEventData() {
     try {
@@ -41,12 +42,30 @@ document.addEventListener('DOMContentLoaded', async () => {
     return eventDiv;
   }
 
+  function compareDates(a, b) {
+    const dateA = new Date(a.Time);
+    const dateB = new Date(b.Time);
+    return dateA - dateB;
+  }
+
+  function isPastEvent(eventData) {
+    const eventDate = new Date(eventData.Time);
+    const currentDate = new Date();
+    return eventDate < currentDate;
+  }
+
   async function displayEvents() {
     const eventsData = await fetchEventData();
+    const sortedEventsData = eventsData.sort(compareDates);
 
-    eventsData.forEach((eventData) => {
+    sortedEventsData.forEach((eventData) => {
       const eventElement = createEventElement(eventData);
-      eventsContainer.appendChild(eventElement);
+
+      if (isPastEvent(eventData)) {
+        pastEventsContainer.appendChild(eventElement);
+      } else {
+        futureEventsContainer.appendChild(eventElement);
+      }
     });
   }
 
