@@ -81,5 +81,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     return eventDiv;
   }
 
-  function displayEvents() {
-    fetchEventData().then((eventDataArray
+ function displayEvents() {
+    fetchEventData().then((eventDataArray) => {
+      eventDataArray.forEach((eventData) => {
+        const eventElement = createEventElement(eventData);
+        const now = new Date();
+
+        if (eventData.Time >= now) {
+          futureEventsContainer.appendChild(eventElement);
+        } else {
+          pastEventsContainer.appendChild(eventElement);
+        }
+      });
+    });
+  }
+
+  displayEvents();
+});
