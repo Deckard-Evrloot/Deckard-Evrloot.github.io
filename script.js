@@ -16,9 +16,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const eventDiv = document.createElement('div');
     eventDiv.classList.add('event');
 
+    const eventImageContainer = document.createElement('div');
+    eventImageContainer.classList.add('image-container');
+
     const eventImage = document.createElement('img');
     eventImage.src = eventData['Image URL'];
     eventImage.alt = 'Event Image';
+
+    eventImageContainer.appendChild(eventImage);
 
     const eventTime = document.createElement('p');
     const eventDate = new Date(eventData.Time);
@@ -45,7 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     eventDetails.appendChild(eventTitle);
     eventDetails.appendChild(eventLocation);
 
-    eventDiv.appendChild(eventImage);
+    eventDiv.appendChild(eventImageContainer);
     eventDiv.appendChild(eventTime);
     eventDiv.appendChild(eventDetails);
 
