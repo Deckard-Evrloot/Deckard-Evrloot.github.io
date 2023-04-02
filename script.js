@@ -30,7 +30,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     eventLocation.textContent = `Location: ${eventData.Location}`;
 
     const eventTime = document.createElement('p');
-    eventTime.textContent = `Time: ${eventData.Time}`;
+    const eventDate = new Date(eventData.Time);
+    const germanFormattedTime = new Intl.DateTimeFormat('de-DE', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZoneName: 'short',
+    }).format(eventDate);
+    eventTime.textContent = `Zeit: ${germanFormattedTime}`;
 
     eventDetails.appendChild(eventTitle);
     eventDetails.appendChild(eventLocation);
