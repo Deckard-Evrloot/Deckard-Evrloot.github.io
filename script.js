@@ -12,77 +12,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     return new Date(year, month - 1, day, hour, minute);
   }
 
-  async function fetchEventData() {
-    try {
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
-      const response = await fetch(url);
-      const data = await response.json();
-      const headers = data.values[0];
-      const rows = data.values.slice(1);
-      const formattedData = rows.map((row) => {
-        const obj = {};
-        headers.forEach((header, index) => {
-          if (header === 'Time') {
-            obj[header] = parseDate(row[index]);
-          } else {
-            obj[header] = row[index];
-          }
-        });
-        return obj;
-      });
+  function formatDate(date) {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const hour = date.getHours();
+    const minute = date.getMinutes();
 
-      return formattedData;
-    } catch (error) {
-      console.error('Error fetching event data:', error);
-    }
+    return `${day < 10 ? '0' + day : day}.${month < 10 ? '0' + month : month}.${year} ${hour < 10 ? '0' + hour : hour}:${minute < 10 ? '0' + minute : minute}`;
   }
 
+  // Rest of the code remains the same
+
   function createEventElement(eventData) {
-    const eventDiv = document.createElement('div');
-    eventDiv.classList.add('event');
-
-    const imageContainer = document.createElement('div');
-    imageContainer.classList.add('image-container');
-    const eventImage = document.createElement('img');
-    eventImage.src = eventData.ImageURL || FALLBACK_IMAGE_URL;
-    imageContainer.appendChild(eventImage);
-
+    // ...
     const eventTime = document.createElement('div');
     eventTime.classList.add('event-time');
     const eventDate = eventData.Time;
-    const formattedDate = `${eventDate.getDate()}-${eventDate.getMonth() + 1}-${eventDate.getFullYear()} ${eventDate.getHours()}:${eventDate.getMinutes()}`;
+    const formattedDate = formatDate(eventDate);
     eventTime.textContent = formattedDate;
     imageContainer.appendChild(eventTime);
-
-    const detailsDiv = document.createElement('div');
-    detailsDiv.classList.add('details');
-
-    const title = document.createElement('h1');
-    title.textContent = eventData.Title;
-    detailsDiv.appendChild(title);
-
-    const location = document.createElement('p');
-    location.textContent = `Ort: ${eventData.Location}`;
-    detailsDiv.appendChild(location);
-
-    eventDiv.appendChild(imageContainer);
-    eventDiv.appendChild(detailsDiv);
-
-    return eventDiv;
-  }
-
-  function displayEvents() {
-    fetchEventData().then((eventDataArray) => {
-      const now = new Date();
-      eventDataArray.forEach((eventData) => {
-        const eventElement = createEventElement(eventData);
-        if (eventData.Time > now) {
-          futureEventsContainer.appendChild(eventElement);
-        } else {
-          pastEventsContainer.appendChild(eventElement);
-        }
-      });
-    });
+    // ...
   }
 
   displayEvents();
