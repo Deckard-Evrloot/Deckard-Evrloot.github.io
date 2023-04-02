@@ -45,44 +45,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     eventTitle.textContent = eventData.Title;
 
     const eventLocation = document.createElement('p');
-    eventLocation.textContent = `Location: ${eventData.Location}`;
-
-    eventDetails.appendChild(eventTitle);
-    eventDetails.appendChild(eventLocation);
-
-    eventDiv.appendChild(eventImageContainer);
-    eventDiv.appendChild(eventTime);
-    eventDiv.appendChild(eventDetails);
-
-    return eventDiv;
-  }
-
-  function compareDates(a, b) {
-    const dateA = new Date(a.Time);
-    const dateB = new Date(b.Time);
-    return dateA - dateB;
-  }
-
-  function isPastEvent(eventData) {
-    const eventDate = new Date(eventData.Time);
-    const currentDate = new Date();
-    return eventDate < currentDate;
-  }
-
-  async function displayEvents() {
-    const eventsData = await fetchEventData();
-    const sortedEventsData = eventsData.sort(compareDates);
-
-    sortedEventsData.forEach((eventData) => {
-      const eventElement = createEventElement(eventData);
-
-      if (isPastEvent(eventData)) {
-        pastEventsContainer.appendChild(eventElement);
-      } else {
-        futureEventsContainer.appendChild(eventElement);
-      }
-    });
-  }
-
-  displayEvents();
-});
+    eventLocation
