@@ -2,13 +2,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   const futureEventsContainer = document.querySelector('.future-events');
   const pastEventsContainer = document.querySelector('.past-events');
 
-  const API_KEY = 'YOUR_ACTUAL_API_KEY';
-  const SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID';
-  const SHEET_NAME = 'Sheet1';
+  const API_KEY = 'AIzaSyAxSUaEX5hAPxNC8SLBSht1OP23wnQJwBo';
+  const SPREADSHEET_ID = '1Y7-F9gCfa16R73lnh_ALXdLTLr9OZmSrnIqkx0g2TtQ';
+  const SHEET_NAME = 'EventDatabaseEvrloot';
 
   async function fetchEventData() {
     try {
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${1Y7-F9gCfa16R73lnh_ALXdLTLr9OZmSrnIqkx0g2TtQ}/values/${EventDatabaseEvrloot}?key=${AIzaSyAxSUaEX5hAPxNC8SLBSht1OP23wnQJwBo}`;
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
       const response = await fetch(url);
       const data = await response.json();
       const headers = data.values[0];
