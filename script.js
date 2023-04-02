@@ -22,18 +22,64 @@ document.addEventListener('DOMContentLoaded', async () => {
     return `${day < 10 ? '0' + day : day}.${month < 10 ? '0' + month : month}.${year} ${hour < 10 ? '0' + hour : hour}:${minute < 10 ? '0' + minute : minute}`;
   }
 
-  // Rest of the code remains the same
+  async function fetchEventData() {
+    try {
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      const headers = data.values[0];
+      const rows = data.values.slice(1);
+      const formattedData = rows.map((row) => {
+        const obj = {};
+        headers.forEach((header, index) => {
+          if (header === 'Time') {
+            obj[header] = parseDate(row[index]);
+          } else {
+            obj[header] = row[index];
+          }
+        });
+        return obj;
+      });
+
+      return formattedData;
+    } catch (error) {
+      console.error('Error fetching event data:', error);
+    }
+  }
 
   function createEventElement(eventData) {
-    // ...
+    const eventDiv = document.createElement('div');
+    eventDiv.classList.add('event');
+
+    const imageContainer = document.createElement('div');
+    imageContainer.classList.add('image-container');
+    const eventImage = document.createElement('img');
+    eventImage.src = eventData.ImageURL !== '' ? eventData.ImageURL : FALLBACK_IMAGE_URL;
+    imageContainer.appendChild(eventImage);
+
     const eventTime = document.createElement('div');
     eventTime.classList.add('event-time');
     const eventDate = eventData.Time;
     const formattedDate = formatDate(eventDate);
     eventTime.textContent = formattedDate;
     imageContainer.appendChild(eventTime);
-    // ...
+
+    const detailsDiv = document.createElement('div');
+    detailsDiv.classList.add('details');
+
+    const title = document.createElement('h1');
+    title.textContent = eventData.Title;
+    detailsDiv.appendChild(title);
+
+    const location = document.createElement('p');
+    location.textContent = `Ort: ${eventData.Location}`;
+    detailsDiv.appendChild(location);
+
+    eventDiv.appendChild(imageContainer);
+    eventDiv.appendChild(detailsDiv);
+
+    return eventDiv;
   }
 
-  displayEvents();
-});
+  function displayEvents() {
+    fetchEventData().then((eventDataArray
