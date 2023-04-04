@@ -184,3 +184,43 @@ header h1 {
 .sign-up-button:hover {
   background-color: #45a049;
 }
+
+/* Add this at the end of the style.css file */
+.request-meeting-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.email-form-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.email-form-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 80%;
+  max-width: 400px;
+}
+
+.email-form-container input,
+.email-form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.hidden {
+  display: none;
+}
