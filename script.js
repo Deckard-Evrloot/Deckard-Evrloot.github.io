@@ -51,6 +51,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const eventDiv = document.createElement('div');
     eventDiv.classList.add('event');
 
+    const signUpButton = document.createElement('button');
+    signUpButton.textContent = 'Anmelden ';
+    signUpButton.classList.add('sign-up-button');
+    const mailIcon = document.createElement('span');
+    mailIcon.innerHTML = '&#x2709;';
+    signUpButton.appendChild(mailIcon);
+    detailsDiv.appendChild(signUpButton);
+
     const imageContainer = document.createElement('div');
     imageContainer.classList.add('image-container');
     const eventImage = document.createElement('img');
