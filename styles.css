@@ -1,74 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  background-color: #f1f1f1;
+  color: #333;
   line-height: 1.6;
 }
 
 .container {
   max-width: 1200px;
-  max-height: 500px;
-
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+header {
+  background-color: #333;
+  padding: 20px 0;
+  text-align: center;
+}
+
+header h1 {
+  color: #fff;
+  font-size: 36px;
 }
 
 .event {
   display: flex;
-  align-items: flex-start;
-  margin-bottom: 2rem;
-  position: relative;
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  overflow: hidden;
 }
 
-.event .image-container {
-  width: 200px; /* Adjust width if necessary */
-  height: 300px; /* Fixed height */
+.image-container {
   position: relative;
-  margin-right: 1rem;
-  overflow: hidden;
+  flex-basis: 50%;
 }
 
 .event img {
   width: 100%;
-  height: 100%;
-  position: absolute;
+  height: 300px;
   object-fit: cover;
-}
-
-.event .details {
-  flex: 1;
-  min-width: 0; /* This ensures that the flex child doesn't overflow its container */
-}
-
-.event h1 {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.event p {
-  margin-bottom: 0.5rem;
 }
 
 .event-time {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: white;
-  padding: 0.5rem;
+  bottom: 10px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 3px;
 }
 
-.future-events {
-  margin-bottom: 4rem;
+.details {
+  flex-basis: 50%;
+  padding: 20px;
 }
 
-.past-events {
-  margin-bottom: 4rem;
+.details h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
-.month-divider {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin: 2rem 0;
+.details p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.future-events, .past-events {
+  margin-top: 20px;
 }
