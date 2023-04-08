@@ -79,7 +79,7 @@ function createEventElement(eventData) {
   signUpButton.textContent = 'Anmelden ';
   signUpButton.classList.add('sign-up-button');
   const mailIcon = document.createElement('span');
-  mailIcon.innerHTML = '&#x2709;';
+  mailIcon.innerHTML = '📩';
   signUpButton.appendChild(mailIcon);
   detailsDiv.appendChild(signUpButton);
 
