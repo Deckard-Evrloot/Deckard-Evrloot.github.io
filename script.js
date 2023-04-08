@@ -108,6 +108,18 @@ function createEventElement(eventData) {
           pastEventsContainer.appendChild(eventElement);
         }
       });
+     if (!upcomingEventsExist) {
+          const noEventsMessage = document.createElement('p');
+          noEventsMessage.innerHTML = 'Aktuell sind keine Events eingetragen. Das wird sich aber schnell ändern. Diese Seite wird wöchentlich aktualisiert.';
+
+          const evrlootSignature = document.createElement('p');
+          evrlootSignature.innerHTML = '<br>Das Evrloot Team';
+          evrlootSignature.style.fontStyle = 'italic';
+          evrlootSignature.style.opacity = '0.8';
+
+          futureEventsContainer.appendChild(noEventsMessage);
+          futureEventsContainer.appendChild(evrlootSignature);
+        }
     });
   }
 
