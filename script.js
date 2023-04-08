@@ -46,48 +46,48 @@ document.addEventListener('DOMContentLoaded', async () => {
       console.error('Error fetching event data:', error);
     }
   }
+function createEventElement(eventData) {
+  const eventDiv = document.createElement('div');
+  eventDiv.classList.add('event');
 
-  function createEventElement(eventData) {
-    const eventDiv = document.createElement('div');
-    eventDiv.classList.add('event');
+  const imageContainer = document.createElement('div');
+  imageContainer.classList.add('image-container');
+  const eventImage = document.createElement('img');
+  eventImage.src = eventData.ImageURL !== '' ? eventData.ImageURL : FALLBACK_IMAGE_URL;
+  imageContainer.appendChild(eventImage);
 
-    const imageContainer = document.createElement('div');
-    imageContainer.classList.add('image-container');
-    const eventImage = document.createElement('img');
-    eventImage.src = eventData.ImageURL !== '' ? eventData.ImageURL : FALLBACK_IMAGE_URL;
-    imageContainer.appendChild(eventImage);
+  const eventTime = document.createElement('div');
+  eventTime.classList.add('event-time');
+  const eventDate = eventData.Time;
+  const formattedDate = formatDate(eventDate);
+  eventTime.textContent = formattedDate;
+  imageContainer.appendChild(eventTime);
 
-    const eventTime = document.createElement('div');
-    eventTime.classList.add('event-time');
-    const eventDate = eventData.Time;
-    const formattedDate = formatDate(eventDate);
-    eventTime.textContent = formattedDate;
-    imageContainer.appendChild(eventTime);
+  const detailsDiv = document.createElement('div');
+  detailsDiv.classList.add('details');
 
-    const detailsDiv = document.createElement('div');
-    detailsDiv.classList.add('details');
+  const title = document.createElement('h1');
+  title.textContent = eventData.Title;
+  detailsDiv.appendChild(title);
 
-    const title = document.createElement('h1');
-    title.textContent = eventData.Title;
-    detailsDiv.appendChild(title);
+  const location = document.createElement('p');
+  location.textContent = `Ort: ${eventData.Location}`;
+  detailsDiv.appendChild(location);
 
-    const location = document.createElement('p');
-    location.textContent = `Ort: ${eventData.Location}`;
-    detailsDiv.appendChild(location);
+  const signUpButton = document.createElement('a');
+  signUpButton.href = 'mailto:team@evrloot.io?subject=Anmeldung zum Event: ' + eventData.Title;
+  signUpButton.textContent = 'Anmelden ';
+  signUpButton.classList.add('sign-up-button');
+  const mailIcon = document.createElement('span');
+  mailIcon.innerHTML = '&#x2709;';
+  signUpButton.appendChild(mailIcon);
+  detailsDiv.appendChild(signUpButton);
 
-    const signUpButton = document.createElement('button');
-    signUpButton.textContent = 'Anmelden ';
-    signUpButton.classList.add('sign-up-button');
-    const mailIcon = document.createElement('span');
-    mailIcon.innerHTML = '&#x2709;';
-    signUpButton.appendChild(mailIcon);
-    detailsDiv.appendChild(signUpButton);
+  eventDiv.appendChild(imageContainer);
+  eventDiv.appendChild(detailsDiv);
 
-    eventDiv.appendChild(imageContainer);
-    eventDiv.appendChild(detailsDiv);
-
-    return eventDiv;
-  }
+  return eventDiv;
+}
 
   function displayEvents() {
     fetchEventData().then((eventDataArray) => {
