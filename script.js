@@ -67,7 +67,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const freeSlots = document.createElement('div');
   freeSlots.classList.add('free-slots');
   freeSlots.textContent = `Freie Plätze: ${eventData['Free Slots']}`;
-  imageContainer.appendChild(freeSlots);
+  detailsDiv.appendChild(freeSlots);
+
 
   const detailsDiv = document.createElement('div');
   detailsDiv.classList.add('details');
