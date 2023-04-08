@@ -90,11 +90,38 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     return eventDiv;
   }
+  
+ function displayNoUpcomingEventsMessage() {
+  const messageContainer = document.createElement('div');
+  messageContainer.classList.add('no-upcoming-events-message');
+
+  const messageText = document.createElement('p');
+  messageText.textContent =
+    'Aktuell sind keine Events eingetragen. Das wird sich aber schnell ändern. Diese Seite wird wöchentlich aktualisiert.';
+  messageContainer.appendChild(messageText);
+
+  const signature = document.createElement('p');
+  signature.textContent = 'Das Evrloot Team';
+  signature.classList.add('signature');
+  messageContainer.appendChild(signature);
+
+  const comingSoonImage = document.createElement('img');
+  comingSoonImage.src = 'YOUR_COMING_SOON_IMAGE_URL_HERE';
+  comingSoonImage.classList.add('coming-soon-image');
+  messageContainer.appendChild(comingSoonImage);
+
+  const freeSpace = document.createElement('div');
+  freeSpace.classList.add('free-space');
+  messageContainer.appendChild(freeSpace);
+
+  futureEventsContainer.appendChild(messageContainer);
+}
+
 
 
  function displayEvents() {
   fetchEventData().then((eventDataArray) => {
-    let upcomingEventsExist = false;
+    let hasUpcomingEvents = false;
 
     eventDataArray.forEach((eventData) => {
       const eventElement = createEventElement(eventData);
@@ -102,23 +129,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       if (eventData.Time >= now) {
         futureEventsContainer.appendChild(eventElement);
-        upcomingEventsExist = true;
+        hasUpcomingEvents = true;
       } else {
         pastEventsContainer.appendChild(eventElement);
       }
     });
 
-    if (!upcomingEventsExist) {
-      const noEventsMessage = document.createElement('p');
-      noEventsMessage.innerHTML = 'Aktuell sind keine Events eingetragen. Das wird sich aber schnell ändern. Diese Seite wird wöchentlich aktualisiert.';
-      noEventsMessage.classList.add('no-events-message');
-
-      const evrlootSignature = document.createElement('p');
-      evrlootSignature.innerHTML = '<br>Das Evrloot Team';
-      evrlootSignature.classList.add('evrloot-signature');
-
-      futureEventsContainer.appendChild(noEventsMessage);
-      futureEventsContainer.appendChild(evrlootSignature);
+    if (!hasUpcomingEvents) {
+      displayNoUpcomingEventsMessage();
     }
   });
 }
