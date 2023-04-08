@@ -96,32 +96,37 @@ function createEventElement(eventData) {
   return eventDiv;
 }
 
-  function displayEvents() {
-    fetchEventData().then((eventDataArray) => {
-      eventDataArray.forEach((eventData) => {
-        const eventElement = createEventElement(eventData);
-        const now = new Date();
+ function displayEvents() {
+  fetchEventData().then((eventDataArray) => {
+    let upcomingEventsExist = false;
 
-        if (eventData.Time >= now) {
-          futureEventsContainer.appendChild(eventElement);
-        } else {
-          pastEventsContainer.appendChild(eventElement);
-        }
-      });
-     if (!upcomingEventsExist) {
-          const noEventsMessage = document.createElement('p');
-          noEventsMessage.innerHTML = 'Aktuell sind keine Events eingetragen. Das wird sich aber schnell ändern. Diese Seite wird wöchentlich aktualisiert.';
+    eventDataArray.forEach((eventData) => {
+      const eventElement = createEventElement(eventData);
+      const now = new Date();
 
-          const evrlootSignature = document.createElement('p');
-          evrlootSignature.innerHTML = '<br>Das Evrloot Team';
-          evrlootSignature.style.fontStyle = 'italic';
-          evrlootSignature.style.opacity = '0.8';
-
-          futureEventsContainer.appendChild(noEventsMessage);
-          futureEventsContainer.appendChild(evrlootSignature);
-        }
+      if (eventData.Time >= now) {
+        futureEventsContainer.appendChild(eventElement);
+        upcomingEventsExist = true;
+      } else {
+        pastEventsContainer.appendChild(eventElement);
+      }
     });
-  }
+
+    if (!upcomingEventsExist) {
+      const noEventsMessage = document.createElement('p');
+      noEventsMessage.innerHTML = 'Aktuell sind keine Events eingetragen. Das wird sich aber schnell ändern. Diese Seite wird wöchentlich aktualisiert.';
+      noEventsMessage.classList.add('no-events-message');
+
+      const evrlootSignature = document.createElement('p');
+      evrlootSignature.innerHTML = '<br>Das Evrloot Team';
+      evrlootSignature.classList.add('evrloot-signature');
+
+      futureEventsContainer.appendChild(noEventsMessage);
+      futureEventsContainer.appendChild(evrlootSignature);
+    }
+  });
+}
+
 
   displayEvents();
 });
