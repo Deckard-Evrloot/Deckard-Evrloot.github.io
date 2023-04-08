@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
   
-  function createEventElement(eventData) {
+ function createEventElement(eventData) {
   const eventDiv = document.createElement('div');
   eventDiv.classList.add('event');
 
@@ -63,12 +63,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const formattedDate = formatDate(eventDate);
   eventTime.textContent = formattedDate;
   imageContainer.appendChild(eventTime);
-
-  const freeSlots = document.createElement('div');
-  freeSlots.classList.add('free-slots');
-  freeSlots.textContent = `Freie Plätze: ${eventData['Free Slots']}`;
-  detailsDiv.appendChild(freeSlots);
-
 
   const detailsDiv = document.createElement('div');
   detailsDiv.classList.add('details');
@@ -87,11 +81,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   signUpButton.innerHTML = 'Anmelden 📧';
   detailsDiv.appendChild(signUpButton);
 
+  const freeSlots = document.createElement('div');
+  freeSlots.classList.add('free-slots');
+  freeSlots.textContent = `Freie Plätze: ${eventData['Free Slots']}`;
+  detailsDiv.appendChild(freeSlots);
+
   eventDiv.appendChild(imageContainer);
   eventDiv.appendChild(detailsDiv);
 
   return eventDiv;
 }
+
 
 
   
