@@ -113,7 +113,7 @@ header h1 {
 }
 
 .sign-up-button {
-  background-color: #4caf50;
+  background-color: #00b0ff;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -125,11 +125,16 @@ header h1 {
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .sign-up-button:hover {
-  background-color: #45a049;
+  background-color: #0086c3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
+
 
 .future-events, .past-events {
   margin-top: 20px;
