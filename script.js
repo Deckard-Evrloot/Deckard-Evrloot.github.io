@@ -64,8 +64,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   eventTime.textContent = formattedDate;
   imageContainer.appendChild(eventTime);
 
-  const detailsDiv = document.createElement('div');
+  const detailsDiv = document.createElement('div'); // Verschieben Sie detailsDiv hier
   detailsDiv.classList.add('details');
+  detailsDiv.style.position = 'relative'; // Fügen Sie diese Zeile hinzu
 
   const title = document.createElement('h1');
   title.textContent = eventData.Title;
@@ -75,16 +76,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   location.textContent = `Ort: ${eventData.Location}`;
   detailsDiv.appendChild(location);
 
+  const freeSlots = document.createElement('div'); // Verschieben Sie freeSlots hier
+  freeSlots.classList.add('free-slots');
+  freeSlots.textContent = `Freie Plätze: ${eventData['Free Slots']}`;
+  detailsDiv.appendChild(freeSlots);
+
   const signUpButton = document.createElement('a');
   signUpButton.href = `mailto:team@evrloot.io?subject=Anmeldung für Event: ${eventData.Title}`;
   signUpButton.classList.add('sign-up-button');
   signUpButton.innerHTML = 'Anmelden 📧';
   detailsDiv.appendChild(signUpButton);
-
-  const freeSlots = document.createElement('div');
-  freeSlots.classList.add('free-slots');
-  freeSlots.textContent = `Freie Plätze: ${eventData['Free Slots']}`;
-  detailsDiv.appendChild(freeSlots);
 
   eventDiv.appendChild(imageContainer);
   eventDiv.appendChild(detailsDiv);
