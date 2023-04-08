@@ -51,14 +51,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const eventDiv = document.createElement('div');
     eventDiv.classList.add('event');
 
-    const signUpButton = document.createElement('button');
-    signUpButton.textContent = 'Anmelden ';
-    signUpButton.classList.add('sign-up-button');
-    const mailIcon = document.createElement('span');
-    mailIcon.innerHTML = '&#x2709;';
-    signUpButton.appendChild(mailIcon);
-    detailsDiv.appendChild(signUpButton);
-
     const imageContainer = document.createElement('div');
     imageContainer.classList.add('image-container');
     const eventImage = document.createElement('img');
@@ -83,13 +75,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     location.textContent = `Ort: ${eventData.Location}`;
     detailsDiv.appendChild(location);
 
+    const signUpButton = document.createElement('button');
+    signUpButton.textContent = 'Anmelden ';
+    signUpButton.classList.add('sign-up-button');
+    const mailIcon = document.createElement('span');
+    mailIcon.innerHTML = '&#x2709;';
+    signUpButton.appendChild(mailIcon);
+    detailsDiv.appendChild(signUpButton);
+
     eventDiv.appendChild(imageContainer);
     eventDiv.appendChild(detailsDiv);
 
     return eventDiv;
   }
 
- function displayEvents() {
+  function displayEvents() {
     fetchEventData().then((eventDataArray) => {
       eventDataArray.forEach((eventData) => {
         const eventElement = createEventElement(eventData);
@@ -106,3 +106,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   displayEvents();
 });
+
