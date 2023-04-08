@@ -62,6 +62,13 @@ function createEventElement(eventData) {
   const formattedDate = formatDate(eventDate);
   eventTime.textContent = formattedDate;
   imageContainer.appendChild(eventTime);
+  
+  // Add this code after appending the eventTime element to the imageContainer
+  const freeSlots = document.createElement('div');
+  freeSlots.classList.add('free-slots');
+  freeSlots.textContent = `Freie Plätze: ${eventData['Free Slots']}`;
+  imageContainer.appendChild(freeSlots);
+
 
   const detailsDiv = document.createElement('div');
   detailsDiv.classList.add('details');
