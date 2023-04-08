@@ -50,12 +50,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const eventDiv = document.createElement('div');
     eventDiv.classList.add('event');
 
-    const signUpButton = document.createElement('a');
-    signUpButton.href = `mailto:team@evrloot.io?subject=Anmeldung für Event: ${eventData.Title}`;
-    signUpButton.classList.add('sign-up-button');
-    signUpButton.innerHTML = 'Anmelden 📧';
-    detailsDiv.appendChild(signUpButton);
-
     const imageContainer = document.createElement('div');
     imageContainer.classList.add('image-container');
     const eventImage = document.createElement('img');
@@ -85,11 +79,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     location.textContent = `Ort: ${eventData.Location}`;
     detailsDiv.appendChild(location);
 
+    const signUpButton = document.createElement('a');
+    signUpButton.href = `mailto:team@evrloot.io?subject=Anmeldung für Event: ${eventData.Title}`;
+    signUpButton.classList.add('sign-up-button');
+    signUpButton.innerHTML = 'Anmelden 📧';
+    detailsDiv.appendChild(signUpButton);
+
     eventDiv.appendChild(imageContainer);
     eventDiv.appendChild(detailsDiv);
 
     return eventDiv;
   }
+
   
  function displayNoUpcomingEventsMessage() {
   const messageContainer = document.createElement('div');
@@ -106,7 +107,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   messageContainer.appendChild(signature);
 
   const comingSoonImage = document.createElement('img');
-  comingSoonImage.src = 'YOUR_COMING_SOON_IMAGE_URL_HERE';
+  comingSoonImage.src = 'https://media.istockphoto.com/id/1221240925/de/vektor/demn%C3%A4chst-schriftzug-in-k%C3%BCrze-f%C3%BCr-promotion-werbung-verkauf-marketing.jpg?s=612x612&w=0&k=20&c=mIzcIn45CEs0_iyVglZbxxp7pF2eXWunFfPDJ059T7M=';
   comingSoonImage.classList.add('coming-soon-image');
   messageContainer.appendChild(comingSoonImage);
 
