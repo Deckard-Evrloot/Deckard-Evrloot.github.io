@@ -102,6 +102,18 @@ header h1 {
   padding: 20px;
 }
 
+  .free-slots {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+
 .details h1 {
   font-size: 24px;
   margin-bottom: 10px;
@@ -169,17 +181,6 @@ header h1 {
   border-radius: 3px;
 }
 
-// Add this CSS in the `style.css` file
-.free-slots {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  font-weight: bold;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 5px 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
 
 .no-events-message {
   font-size: 18px;
